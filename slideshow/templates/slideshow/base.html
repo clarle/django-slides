@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script> 
+    <script src="{% get_static_prefix %}slideshow/js/slides.min.jquery.js"></script>
+    <link rel="stylesheet" href="{% get_static_prefix %}slideshow/css/slides.css">
+	<title>{% block title %}Slideshow{% endblock %}</title>
+  </head>
+  <body>
+    {% block body %}
+    <div id="example">
+    {% include slider.html %}
+    <img src="{{ STATIC_URL}}slideshow/img/example-frame.png" width="739" height="341" alt="Example Frame" id="frame">
+    </div>
+    {% endblock %}
+  </body>
+</html>
+

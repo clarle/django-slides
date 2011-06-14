@@ -1,0 +1,56 @@
+{% load static %}
+{% if slides %}
+    <script>
+        $(function(){
+            $("#slides").slides({
+            {% for key, value in params.iteritems %}
+                {{ key }}: {{ value }},
+            {% endfor %}
+            {% if captions %}
+                animationStart: function(current){
+					$('.caption').animate({
+						bottom:-35
+					},100);
+				},
+				animationComplete: function(current){
+					$('.caption').animate({
+						bottom:0
+					},200);
+				},
+				slidesLoaded: function() {
+					$('.caption').animate({
+						bottom:0
+					},200);
+				}
+            {% endif %}
+            });
+        });
+    </script>
+    <div id="slides">
+        <div class="slides_container">
+        {% for slide in slides %}
+            <div class="slide">
+            {% if slide.image %}
+                <img src="{% get_media_prefix %}{{ slide.image }}">
+                {% if captions and slide.description %}
+                <div class="caption">
+                    <p>{{ slide.description|safe }}</p>
+                </div>
+                {% endif %}
+            {% else %}
+                <div class="text">
+                    <h1>{{ slide.title }}</h1>
+                    {{ slide.description|safe }}
+                </div>
+            {% endif %}
+            </div>
+        {% endfor %}
+        </div>
+        {% if arrows %}
+        <a href="#" class="prev"><img src="{% get_static_prefix %}slideshow/img/arrow-prev.png" alt="Arrow Prev"></a> 
+        <a href="#" class="next"><img src="{% get_static_prefix %}slideshow/img/arrow-next.png" alt="Arrow Next"></a>
+        {% endif %}
+    </div>
+{% else %}
+    <p>There are no slides in this slideshow</p>
+{% endif %}
